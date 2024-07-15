@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Determination Sans";
+  src: url("./fonts/DeterminationSansWeb.woff");
+}
+
+@font-face {
+  font-family: "Monster Friends 2 Back";
+  src: url("./fonts/MonsterFriend2Back.woff2");
+}
+
+@font-face {
+  font-family: "Monster Friends 2 Center";
+  src: url("./fonts/MonsterFriend2Center.woff2");
+}
+
+@font-face {
+  font-family: "Monster Friends 2 Fore";
+  src: url("./fonts/MonsterFriend2Fore.woff2");
+}
