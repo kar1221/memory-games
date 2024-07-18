@@ -9,21 +9,18 @@
 
 @font-face {
   font-family: "MF2Back";
-  src:
-    url("./src/fonts/MonsterFriend2Back.woff") format("woff"),
-    url("./src/fonts/MonsterFriend2Back.woff2") format("woff2");
+  src: url("./fonts/MonsterFriend2Back.woff"),
+    url("./fonts/MonsterFriend2Back.woff2");
 }
 
 @font-face {
   font-family: "MF2Center";
-  src:
-    url("./src/fonts/MonsterFriend2Center.woff") format("woff"),
-    url("./src/fonts/MonsterFriend2Center.woff2") format("woff2");
+  src: url("./fonts/MonsterFriend2Center.woff"),
+    url("./fonts/MonsterFriend2Center.woff2");
 }
 
 @font-face {
   font-family: "MF2Fore";
-  src:
-    url("./src/fonts/MonsterFriend2Fore.woff") format("woff"),
-    url("./src/fonts/MonsterFriend2Fore.woff2") format("woff2");
+  src: url("./fonts/MonsterFriend2Fore.woff"),
+    url("./fonts/MonsterFriend2Fore.woff2");
 }
