@@ -1,5 +1,5 @@
 function getCompleteUrl(imgName: string, animated = true) {
-  const baseUrl = "src/assets/sprites";
+  const baseUrl = "../assets/sprites";
 
   return `${baseUrl}/${imgName}.${animated ? "gif" : "png"}`;
 }
