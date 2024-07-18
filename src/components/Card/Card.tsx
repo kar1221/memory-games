@@ -1,39 +1,57 @@
 import React from "react";
 import background from "@assets/undertale_background.jpg";
+import { motion } from "framer-motion";
 
-function Card({ imgSrc, spriteName }: CardProps): React.ReactElement {
-  const [isRotate, setRotate] = React.useState<boolean>(false);
+function Card({ imgSrc, spriteName, onClick }: CardProps): React.ReactElement {
+  const [isCanClick, setIsCanClick] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     setTimeout(() => {
-      setRotate(true);
+      setIsCanClick(true);
     }, 500);
   }, []);
 
   return (
-    <button
+    <motion.button
+      initial={{
+        rotateY: 180,
+      }}
+      animate={{
+        rotateY: 0,
+      }}
+      exit={{
+        rotateY: -180,
+      }}
+      transition={{
+        duration: 0.5,
+        ease: "easeInOut",
+      }}
       type="button"
-      className={`bg-black h-80 w-60 relative transition-transform duration-500 ease-in-out transform-style-3d ${isRotate ? "rotate-y-0" : "rotate-y-180"} group will-change-transform`}
+      className={`bg-black h-80 max-w-60 w-full relative backface-hidden transform-style-3d group ${isCanClick ? "pointer-events-auto" : "pointer-events-none"}`}
+      onClick={() => {
+        if (onClick && isCanClick) onClick();
+      }}
     >
-      <div className="flex flex-col items-center justify-center gap-4 p-4 absolute top-0 bottom-0 left-0 right-0 backface-hidden group-hover:-translate-y-2 border-white border-4 group-hover:border-utYellow">
+      <div className="flex absolute top-0 right-0 bottom-0 left-0 flex-col gap-4 justify-center items-center p-4 border-4 border-white backface-hidden group-hover:-translate-y-2 group-hover:border-utYellow">
         <img src={imgSrc} alt="" className="w-auto h-3/5" />
-        <p className="font-determination text-white text-2xl group-hover:text-utYellow">
+        <p className="text-2xl text-white font-determination group-hover:text-utYellow">
           {spriteName}
         </p>
       </div>
       <div
-        className="h-full bg-cover bg-no-repeat bg-top absolute top-0 left-0 right-0 bottom-0 rotate-y-180 backface-hidden border-white border-4"
+        className="absolute top-0 right-0 bottom-0 left-0 h-full bg-top bg-no-repeat bg-cover border-4 border-white rotate-y-180 backface-hidden"
         style={{
           backgroundImage: `url(${background})`,
         }}
       />
-    </button>
+    </motion.button>
   );
 }
 
 interface CardProps {
   imgSrc: string;
   spriteName: string;
+  onClick?: () => void;
 }
 
 export default Card;

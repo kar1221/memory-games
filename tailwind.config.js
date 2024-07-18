@@ -5,12 +5,22 @@ export default {
     extend: {
       fontFamily: {
         determination: "'Determination Sans', 'sans-serif'",
-        titleBack: "'Monster Friends 2 Back', 'sans-serif'",
-        titleCenter: "'Monster Friends 2 Center', 'sans-serif'",
-        titleFore: "'Monster Friends 2 Fore', 'sans-serif'",
+        titleBack: "'MF2Back', 'sans-serif'",
+        titleCenter: "'MF2Center', 'sans-serif'",
+        titleFore: "'MF2Fore', 'sans-serif'",
       },
       colors: {
         utYellow: "#FFFF00",
+        utRed: "#FF0000",
+      },
+      keyframes: {
+        flipKey: {
+          "0%": { transform: "rotateY(180deg)" },
+          "100%": { transform: "rotateY(0)" },
+        },
+      },
+      animation: {
+        flip: "flipKey 1s ease-in-out",
       },
     },
   },
