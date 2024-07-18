@@ -1,6 +1,6 @@
 import React from "react";
 
-function Soul({ className }: SoulProps) {
+function Soul({ className }: SoulProps): React.ReactElement {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
