@@ -1,7 +1,10 @@
 function getCompleteUrl(imgName: string, animated = true) {
-  const baseUrl = "../assets/sprites";
+  const baseUrl = "/sprites";
 
-  return `${baseUrl}/${imgName}.${animated ? "gif" : "png"}`;
+  return new URL(
+    `${baseUrl}/${imgName}.${animated ? "gif" : "png"}`,
+    import.meta.url
+  ).href;
 }
 
 const SpriteMap = {
