@@ -5,6 +5,7 @@ import GetGameConfiguration, { Difficulty } from "@src/utils/Difficulty";
 import SpriteMap, { defaultSprites, SpriteKey } from "@src/utils/SpriteMap";
 import { AnimatePresence, motion } from "framer-motion";
 import { v4 as uuidv4 } from "uuid";
+import Button from "../Button";
 import Card from "../Card";
 
 function RandInt(min: number, max: number): number {
@@ -27,7 +28,7 @@ function GetRandomItems<T>(array: T[], amounts: number): T[] {
   return tmpArray;
 }
 
-function Game({ difficulty }: GameProps): React.ReactElement {
+function Game({ difficulty, resetDifficulty }: GameProps): React.ReactElement {
   const storedHighScore = localStorage.getItem("highScore") || "0";
 
   const winningScore = useMemo(() => Object.keys(SpriteMap).length, []);
@@ -67,6 +68,13 @@ function Game({ difficulty }: GameProps): React.ReactElement {
     };
   }
 
+  function handleRetry() {
+    setScore(0);
+    setIsGameOver(false);
+    setClickedCards([]);
+    setInitialCards(defaultSprites);
+  }
+
   const gameConfig = GetGameConfiguration(difficulty, score);
   const duplicates = GetRandomItems(
     clickedCards,
@@ -91,7 +99,13 @@ function Game({ difficulty }: GameProps): React.ReactElement {
 
   // If there are still not enough cards, add more from clickedCards
   while (reservedSprites.length < gameConfig.cardsAmounts) {
-    const moreDuplicates = GetRandomItems(clickedCards, 1);
+    const reservedSpritesCopy = reservedSprites.slice();
+    const additionalCards = clickedCards.filter(
+      (card) => !reservedSpritesCopy.includes(card)
+    );
+    if (additionalCards.length === 0) break; // No more unique cards to add
+
+    const moreDuplicates = GetRandomItems(additionalCards, 1);
     reservedSprites = reservedSprites.concat(moreDuplicates);
   }
 
@@ -138,6 +152,39 @@ function Game({ difficulty }: GameProps): React.ReactElement {
           </AnimatePresence>
         </motion.main>
       </AnimatePresence>
+      {isGameOver && (
+        <motion.div
+          className="flex absolute top-0 right-0 bottom-0 left-0 justify-center items-center bg-black bg-opacity-30"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          <div className="flex flex-col justify-center items-center p-8 bg-black border-4 border-white">
+            <Title titleText="Game Over" className="mb-4 text-4xl" />
+            <div className="mb-4">
+              <Text
+                text={
+                  score === winningScore
+                    ? "You clicked all the monsters!"
+                    : "You clicked the same monster :("
+                }
+                className="text-2xl"
+              />
+            </div>
+            <div className="flex flex-col gap-2 justify-center items-center w-full">
+              <Button
+                text="Retry"
+                onClick={() => handleRetry()}
+                className="text-3xl"
+              />
+              <Button
+                text="Menu"
+                onClick={() => resetDifficulty()}
+                className="text-3xl"
+              />
+            </div>
+          </div>
+        </motion.div>
+      )}
     </div>
   );
 }
